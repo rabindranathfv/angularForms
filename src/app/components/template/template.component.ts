@@ -8,6 +8,12 @@ import { NgForm } from '@angular/forms';
 })
 export class TemplateComponent implements OnInit {
 
+  user: Object = {
+    name: 'rabindranath',
+    lastname: 'ferreira',
+    email: 'test@hotmail.com'
+  };
+
   constructor() { }
 
   ngOnInit() {
@@ -16,5 +22,6 @@ export class TemplateComponent implements OnInit {
   save( form: NgForm) {
     console.log('save data');
     console.log(form);
+    console.log(`data capturada con el form ${form.value}`);
   }
 }
