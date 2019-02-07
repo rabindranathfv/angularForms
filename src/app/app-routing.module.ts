@@ -11,7 +11,8 @@ import { DataComponent } from './components/data/data.component';
 const routes: Routes = [
   { path: 'template' , component: TemplateComponent },
   { path: 'data' , component: DataComponent },
-  { path: '' , component: AngFormsComponent },
+  { path: '' , component: DataComponent },
+  // { path: '' , component: AngFormsComponent },
   { path: '**' , pathMatch: 'full', redirectTo: 'data'}
 ];
 
