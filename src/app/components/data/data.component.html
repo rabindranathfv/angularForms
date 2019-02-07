@@ -3,53 +3,66 @@
 
     <div>
 
-        <div class="form-group row">
+        <div class="form-group row" [ngClass]="{'has-danger': form.controls.name.errors?.required }">
             <label class="col-2 col-form-label">Nombre</label>
             <div class="col-8">
 
-                <input class="form-control" type="text" formControlName="name" placeholder="Nombre" name="name" required minlength="5">
+                <input class="form-control" type="text" formControlName="name" placeholder="Nombre" name="name">
             </div>
 
-            <!-- <div *ngIf="name.errors?.required" class="form-control-feedback">
+            <div *ngIf="form.controls['name'].errors?.required" class="form-control-feedback">
                 campo requerido
             </div>
-            <div *ngIf="name.errors?.pattern" class="form-control-feedback">
-                formato de correo invalido {{ name.errors?.pattern }}
-            </div> -->
 
         </div>
 
         <div class="form-group row">
             <label class="col-2 col-form-label">Apellido</label>
             <div class="col-8">
-                <input class="form-control" type="text" formControlName="lastname" name="lastname" placeholder="Apellido" minlength="8" required>
+                <input class="form-control" type="text" formControlName="lastname" name="lastname" placeholder="Apellido">
             </div>
-            <!-- <div *ngIf="lastname.errors?.required" class="form-control-feedback">
+            <div *ngIf="form.controls['lastname'].errors?.required" class="form-control-feedback">
                 campo requerido
-            </div> -->
+            </div>
         </div>
 
+    </div>
+
+    <div formGroupName="details">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Sexo</label>
+            <div class="col-8">
+                <input class="form-control" type="text" formControlName="sexo" placeholder="Sexo" name="sexo">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input class="form-control" type="text" formControlName="edad" placeholder="Edad" name="edad">
+            </div>
+        </div>
     </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Correo</label>
         <div class="col-md-8">
-
-            <input class="form-control" type="email" formControlName="email" name="email" placeholder="Correo electrónico" required>
+            <input class="form-control" type="email" formControlName="email" name="email" placeholder="Correo electrónico">
         </div>
 
-        <!-- <div *ngIf="email.errors?.required" class="form-control-feedback">
+        <div *ngIf="form.controls['email'].errors?.required" class="form-control-feedback">
             campo requerido
         </div>
-        <div *ngIf="email.errors?.pattern" class="form-control-feedback">
+        <div *ngIf="form.controls['email'].errors?.email" class="form-control-feedback">
             Error en el formato
-        </div> -->
+        </div>
     </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">
-            <button type="submit" [disabled]="!form.valid" class="btn btn-outline-primary"> Guardar </button>
+            <!-- [disabled]="form.invalid" -->
+            <button type="submit" class="btn btn-outline-primary"> Guardar </button>
         </div>
 
 
