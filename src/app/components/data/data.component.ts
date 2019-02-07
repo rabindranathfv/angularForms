@@ -39,6 +39,17 @@ export class DataComponent implements OnInit {
     console.log('se disparo saveData');
     console.log(this.form);
     console.log(this.form.value);
+
+    // reset form
+    this.form.reset({
+      name: '',
+      lastname: '',
+      details: {
+        sexo: '',
+        edad: ''
+      },
+      email: ''
+    });
   }
 
 }
