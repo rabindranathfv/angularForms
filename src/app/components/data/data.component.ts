@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { notEqual } from 'assert';
+import { Observable } from 'rxjs';
+import { controlNameBinding } from '@angular/forms/src/directives/reactive_directives/form_control_name';
 
 @Component({
   selector: 'app-data',
@@ -15,7 +18,8 @@ export class DataComponent implements OnInit {
       sexo: 'MASCULINO',
       edad: 28
     },
-    email: 'test@getMaxListeners.com'
+    email: 'test@getMaxListeners.com',
+    pasatiempos: ['correr', 'dormir','volar']
   };
   form: FormGroup;
   constructor() {
@@ -26,13 +30,53 @@ export class DataComponent implements OnInit {
         sexo: new FormControl(''),
         edad: new FormControl('')
       }),
-      email: new FormControl('', [Validators.required, Validators.pattern('/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/'), Validators.email])
+      email: new FormControl('', [Validators.required, Validators.pattern('/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/'), Validators.email]),
+      pasatiempos: new FormArray([
+        new FormControl('correr', Validators.required)
+      ]),
+      username: new FormControl('', Validators.required, this.existUsername ),
+      passwd: new FormControl('', Validators.required),
+      passwd2: new FormControl('', Validators.required)
     });
     // another way to binding default data from object directly to a formgroup
-    this.form.setValue( this.user );
+    // this.form.setValue( this.user );
+
+    // add asyn validation
+    this.form.controls['passwd2'].setValidators(Validators.required);
    }
 
   ngOnInit() {
+  }
+
+  existUsername( control: FormControl ): Promise<any>|Observable<any> {
+     const promesa = new Promise( (resolve, reject) => {
+        setTimeout(() => {
+          if( control.value === 'strider' ) {
+            resolve( {exist: true} );
+          } else {
+            reject( null );
+          }
+        }, 3000 );
+     });
+     return promesa;
+  }
+
+  addPasatiempo() {
+    // le indicas el tipado del forma (<tipo>).method
+    (<FormArray>this.form.controls['pasatiempos']).push(
+      new FormControl('dormir', Validators.required)
+    );
+  }
+
+  notEqual( control: FormControl): { [s: string]: boolean} {
+    console.log(this);
+    let form: any = this;
+    if ( control.value !== this.form.controls['passwd1'].value ) {
+      return {
+        notEqual: true
+      };
+    }
+    return null;
   }
 
   saveData() {
