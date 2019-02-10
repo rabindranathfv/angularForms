@@ -19,7 +19,7 @@ export class DataComponent implements OnInit {
       edad: 28
     },
     email: 'test@getMaxListeners.com',
-    pasatiempos: ['correr', 'dormir','volar']
+    pasatiempos: ['correr', 'dormir', 'volar']
   };
   form: FormGroup;
   constructor() {
@@ -43,6 +43,11 @@ export class DataComponent implements OnInit {
 
     // add asyn validation
     this.form.controls['passwd2'].setValidators(Validators.required);
+
+    // valueChanges return and observable for check changes inside the form
+    this.form.valueChanges.subscribe( resp => console.log(resp) );
+
+    this.form.statusChanges.subscribe( resp => console.log(resp) );
    }
 
   ngOnInit() {
